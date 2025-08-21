@@ -23,7 +23,13 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
+var produtos = new List<Produto>
+{
+    new Produto { Id = 1, Nome = "Produto A", Preco = 10.0m, Estoque = 100 },
+    new Produto { Id = 2, Nome = "Produto B", Preco = 20.0m, Estoque = 200 }   
+};
 
+#region endpoints
 app.MapGet("/weatherforecast", () =>
 {
     var forecast =  Enumerable.Range(1, 5).Select(index =>
@@ -40,11 +46,7 @@ app.MapGet("/weatherforecast", () =>
 
 app.MapGet("/test", () => "Esse é um endpoint de teste");
 
-var produtos = new List<Produto>
-{
-    new Produto { Id = 1, Nome = "Produto A", Preco = 10.0m, Estoque = 100 },
-    new Produto { Id = 2, Nome = "Produto B", Preco = 20.0m, Estoque = 200 }   
-};
+
 
 app.MapGet("/produtos", () =>
 {
@@ -55,10 +57,25 @@ app.MapGet("/produtos/{id}", (int id) =>
 {
     var produto = produtos.FirstOrDefault(p => p.Id == id);
     return produto == null ? Results.NotFound() : Results.Ok(produto);
-    
+
 });
 
+app.MapPost("/produtos", (Produto produto) =>
+{
+    var NovoProduto = new Produto
+    {
+        Id = produtos.Max(p => p.Id) + 1,
+        Nome = produto.Nome,
+        Preco = produto.Preco,
+        Estoque = produto.Estoque
+    };
 
+    produtos.Add(NovoProduto);
+    return Results.Created($"/produtos/{NovoProduto.Id}", NovoProduto);
+}); 
+
+
+#endregion
 
 app.Run();
 

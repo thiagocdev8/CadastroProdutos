@@ -33,3 +33,4 @@ C:\Users\Jay\Desktop\projects\backend\CadastroProdutos\obj\Debug\net9.0\ref\Cada
 c:\Users\Jay\Desktop\projects\backend\CadastroProdutos\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 c:\Users\Jay\Desktop\projects\backend\CadastroProdutos\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 c:\Users\Jay\Desktop\projects\backend\CadastroProdutos\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Jay\Desktop\projects\backend\cadastroprodutos\obj\Debug\net9.0\CadastroProdutos.sourcelink.json

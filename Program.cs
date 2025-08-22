@@ -1,3 +1,15 @@
+var summaries = new[]
+{
+    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+};
+
+var produtos = new List<Produto>
+{
+    new Produto { Id = 1, Nome = "Produto A", Preco = 10.0m, Estoque = 100 },
+    new Produto { Id = 2, Nome = "Produto B", Preco = 20.0m, Estoque = 200 }   
+};
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,18 +30,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
-var produtos = new List<Produto>
-{
-    new Produto { Id = 1, Nome = "Produto A", Preco = 10.0m, Estoque = 100 },
-    new Produto { Id = 2, Nome = "Produto B", Preco = 20.0m, Estoque = 200 }   
-};
 
-#region endpoints
+
 app.MapGet("/weatherforecast", () =>
 {
     var forecast =  Enumerable.Range(1, 5).Select(index =>
@@ -75,7 +78,6 @@ app.MapPost("/produtos", (Produto produto) =>
 }); 
 
 
-#endregion
 
 app.Run();
 

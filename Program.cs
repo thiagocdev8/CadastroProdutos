@@ -94,7 +94,17 @@ app.MapPut("/produtos/{id}", (int id, Produto produtoAtualizado) =>
     return Results.Ok();
 }); 
 
+app.MapDelete("/produtos/{id}", (int id) =>
+{
+    var produto = produtos.FirstOrDefault(p => p.Id == id);
+    if (produto == null)
+    {
+        return Results.NotFound($"Produto com ID {id} não encontrado.");
+    }
 
+    produtos.Remove(produto);
+    return Results.Ok();
+});
 
 app.Run();
 

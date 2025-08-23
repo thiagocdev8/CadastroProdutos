@@ -1,12 +1,14 @@
+using CadastroProdutos.Entity;
+
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-var produtos = new List<Produto>
+var produtos = new List<Produtos>
 {
-    new Produto { Id = 1, Nome = "Produto A", Preco = 10.0m, Estoque = 100 },
-    new Produto { Id = 2, Nome = "Produto B", Preco = 20.0m, Estoque = 200 }   
+    new Produtos { Id = 1, Nome = "Produto A", Preco = 10.0m, Estoque = 100 },
+    new Produtos { Id = 2, Nome = "Produto B", Preco = 20.0m, Estoque = 200 }   
 };
 
 
@@ -14,11 +16,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
+
+app.MapControllers();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -65,9 +71,9 @@ app.MapGet("/produtos/{id}", (int id) =>
 });
 
 //criar novo produto
-app.MapPost("/produtos", (Produto produto) =>
+app.MapPost("/produtos", (Produtos produto) =>
 {
-    var NovoProduto = new Produto
+    var NovoProduto = new Produtos
     {
         Id = produtos.Max(p => p.Id) + 1,
         Nome = produto.Nome,
@@ -79,7 +85,9 @@ app.MapPost("/produtos", (Produto produto) =>
     return Results.Created($"/produtos/{NovoProduto.Id}", NovoProduto);
 });
 
-app.MapPut("/produtos/{id}", (int id, Produto produtoAtualizado) =>
+
+//atualizar produto
+app.MapPut("/produtos/{id}", (int id, Produtos produtoAtualizado) =>
 {
     var produtoExistente = produtos.FirstOrDefault(p => p.Id == id);
     if (produtoExistente == null)
@@ -94,6 +102,8 @@ app.MapPut("/produtos/{id}", (int id, Produto produtoAtualizado) =>
     return Results.Ok();
 }); 
 
+
+//deletar produto
 app.MapDelete("/produtos/{id}", (int id) =>
 {
     var produto = produtos.FirstOrDefault(p => p.Id == id);
@@ -113,10 +123,5 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
 
-class Produto
-{
-    public int Id { get; set; }
-    public string Nome { get; set; }
-    public decimal Preco { get; set; }
-    public int Estoque { get; set; }
-}
+
+

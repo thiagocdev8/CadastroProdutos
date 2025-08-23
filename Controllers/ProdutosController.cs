@@ -24,11 +24,26 @@ namespace CadastroProdutos.Controllers
         public ActionResult<Produtos> GetById(int id)
         {
             var produto = produtos.FirstOrDefault(p => p.Id == id);
-            if (produto == null)
+            if (produto is null)
             {
                 return NotFound();
             }
             return Ok(produto);
+        }
+
+        [HttpPost]
+        public ActionResult createProduto(Produtos produto)
+        {
+            var novoProduto = new Produtos
+            {
+                Id = produtos.Max(p => p.Id) + 1,
+                Nome = produto.Nome,
+                Preco = produto.Preco,
+                Estoque = produto.Estoque
+            };
+
+            produtos.Add(novoProduto);
+            return Ok(novoProduto);
         }
     } 
 }

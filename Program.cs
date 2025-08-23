@@ -50,12 +50,13 @@ app.MapGet("/weatherforecast", () =>
 app.MapGet("/test", () => "Esse é um endpoint de teste");
 
 
-
+//listar todos os produtos
 app.MapGet("/produtos", () =>
 {
     return produtos;
 });
 
+//buscar produto por id
 app.MapGet("/produtos/{id}", (int id) =>
 {
     var produto = produtos.FirstOrDefault(p => p.Id == id);
@@ -63,6 +64,7 @@ app.MapGet("/produtos/{id}", (int id) =>
 
 });
 
+//criar novo produto
 app.MapPost("/produtos", (Produto produto) =>
 {
     var NovoProduto = new Produto
@@ -75,6 +77,21 @@ app.MapPost("/produtos", (Produto produto) =>
 
     produtos.Add(NovoProduto);
     return Results.Created($"/produtos/{NovoProduto.Id}", NovoProduto);
+});
+
+app.MapPut("/produtos/{id}", (int id, Produto produtoAtualizado) =>
+{
+    var produtoExistente = produtos.FirstOrDefault(p => p.Id == id);
+    if (produtoExistente == null)
+    {
+        return Results.NotFound($"Produto com ID {id} não encontrado.");
+    }
+
+    produtoExistente.Nome = produtoAtualizado.Nome;
+    produtoExistente.Preco = produtoAtualizado.Preco;
+    produtoExistente.Estoque = produtoAtualizado.Estoque;
+
+    return Results.Ok();
 }); 
 
 

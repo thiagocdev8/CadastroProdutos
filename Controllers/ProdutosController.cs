@@ -8,7 +8,7 @@ namespace CadastroProdutos.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
-        private List<Produtos> produtos = new List<Produtos>
+        private static List<Produtos> produtos = new List<Produtos>
         {
             new Produtos { Id = 1, Nome = "Produto A", Preco = 10.0m, Estoque = 100 },
             new Produtos { Id = 2, Nome = "Produto B", Preco = 20.0m, Estoque = 200 }
@@ -43,7 +43,23 @@ namespace CadastroProdutos.Controllers
             };
 
             produtos.Add(novoProduto);
-            return Ok(novoProduto);
+            return Created($"/produtos/{novoProduto.Id}", novoProduto);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult updateProduto(int id, Produtos produtoAtualizado)
+        {
+            var produtoExistente = produtos.FirstOrDefault(p => p.Id == id);
+            if (produtoExistente is null)
+            {
+                return NotFound($"Produto com ID {id} não encontrado.");
+            }
+
+            produtoExistente.Nome = produtoAtualizado.Nome;
+            produtoExistente.Preco = produtoAtualizado.Preco;
+            produtoExistente.Estoque = produtoAtualizado.Estoque;
+
+            return Ok();
         }
     } 
 }

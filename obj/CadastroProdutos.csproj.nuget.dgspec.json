@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jay\\Desktop\\projects\\backend\\cadastroprodutos\\CadastroProdutos.csproj": {}
+    "C:\\Users\\Jay\\Desktop\\projects\\backend\\CadastroProdutos\\CadastroProdutos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jay\\Desktop\\projects\\backend\\cadastroprodutos\\CadastroProdutos.csproj": {
+    "C:\\Users\\Jay\\Desktop\\projects\\backend\\CadastroProdutos\\CadastroProdutos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jay\\Desktop\\projects\\backend\\cadastroprodutos\\CadastroProdutos.csproj",
+        "projectUniqueName": "C:\\Users\\Jay\\Desktop\\projects\\backend\\CadastroProdutos\\CadastroProdutos.csproj",
         "projectName": "CadastroProdutos",
-        "projectPath": "C:\\Users\\Jay\\Desktop\\projects\\backend\\cadastroprodutos\\CadastroProdutos.csproj",
+        "projectPath": "C:\\Users\\Jay\\Desktop\\projects\\backend\\CadastroProdutos\\CadastroProdutos.csproj",
         "packagesPath": "C:\\Users\\Jay\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jay\\Desktop\\projects\\backend\\cadastroprodutos\\obj\\",
+        "outputPath": "C:\\Users\\Jay\\Desktop\\projects\\backend\\CadastroProdutos\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -51,6 +51,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.6, )"

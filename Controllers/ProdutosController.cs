@@ -9,18 +9,19 @@ namespace CadastroProdutos.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
-       
+
+        private ProdutosService produtosService = new ProdutosService();
 
         [HttpGet]
         public ActionResult<List<Produtos>> GetAll()
         {
-            return Ok(produtos);
+            return Ok(produtosService.GetAll());
         }
 
         [HttpGet("{id}")]
         public ActionResult<Produtos> GetById(int id)
         {
-            var produto = produtos.FirstOrDefault(p => p.Id == id);
+            var produto = produtosService.GetById(id);
             if (produto is null)
             {
                 return NotFound();
@@ -31,44 +32,33 @@ namespace CadastroProdutos.Controllers
         [HttpPost]
         public ActionResult createProduto(Produtos produto)
         {
-            var novoProduto = new Produtos
-            {
-                Id = produtos.Max(p => p.Id) + 1,
-                Nome = produto.Nome,
-                Preco = produto.Preco,
-                Estoque = produto.Estoque
-            };
-
-            produtos.Add(novoProduto);
-            return Created($"/produtos/{novoProduto.Id}", novoProduto);
+            produtosService.Create(produto);
+            return Created();
+            
         }
 
         [HttpPut("{id}")]
         public ActionResult updateProduto(int id, Produtos produtoAtualizado)
         {
-            var produtoExistente = produtos.FirstOrDefault(p => p.Id == id);
+            var produtoExistente = produtosService.updateProduto(id, produtoAtualizado);
             if (produtoExistente is null)
             {
                 return NotFound($"Produto com ID {id} não encontrado.");
             }
 
-            produtoExistente.Nome = produtoAtualizado.Nome;
-            produtoExistente.Preco = produtoAtualizado.Preco;
-            produtoExistente.Estoque = produtoAtualizado.Estoque;
-
-            return Ok();
+            return Ok(produtoAtualizado);
         }
 
         [HttpDelete("{id}")]
         public ActionResult deleteProduto(int id)
         {
-            var produto = produtos.FirstOrDefault(p => p.Id == id);
-            if (produto is null)
+            var deletou = produtosService.Delete(id);
+
+            if (!deletou)
             {
                 return NotFound($"Produto com ID {id} não encontrado.");
             }
-
-            produtos.Remove(produto);
+            
             return Ok();
         }
     } 

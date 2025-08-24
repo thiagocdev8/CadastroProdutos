@@ -1,4 +1,7 @@
+using CadastroProdutos.Database;
 using CadastroProdutos.Entity;
+using CadastroProdutos.Services;
+using Microsoft.EntityFrameworkCore;
 
 var summaries = new[]
 {
@@ -21,6 +24,8 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<IProdutosServices, ProdutosService>();
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source = Produtos.db"));
 
 var app = builder.Build();
 

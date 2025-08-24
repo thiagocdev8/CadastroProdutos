@@ -12,10 +12,12 @@ namespace CadastroProdutos.Controllers
 
         //dependency injection
         private IProdutosServices produtosService;
-        public ProdutosController()
+
+        public ProdutosController(IProdutosServices produtosService)
         {
-            produtosService = new ProdutosService();
+            this.produtosService = produtosService;
         }
+
 
         [HttpGet]
         public ActionResult<List<Produtos>> GetAll()

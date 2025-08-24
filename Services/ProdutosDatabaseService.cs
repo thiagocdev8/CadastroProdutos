@@ -44,7 +44,7 @@ public class ProdutosDatabaseService : IProdutosServices
         return produto;
     }
 
-    public Produtos updateProduto(int id, Produtos produtoAtualizado)
+    public Produtos? updateProduto(int id, Produtos produtoAtualizado)
     {
         var produtoExistente = banco.Produtos.FirstOrDefault(p => p.Id == id);
         if (produtoExistente is null)

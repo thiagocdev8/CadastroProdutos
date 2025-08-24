@@ -36,7 +36,7 @@ public class ProdutosService : IProdutosServices
         produtos.Add(novoProduto);
     }
 
-    public Produtos updateProduto(int id, Produtos produtoAtualizado)
+    public Produtos? updateProduto(int id, Produtos produtoAtualizado)
     {
         var produtoExistente = produtos.FirstOrDefault(p => p.Id == id);
         if (produtoExistente is null)

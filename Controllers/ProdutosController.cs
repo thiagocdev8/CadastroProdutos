@@ -10,7 +10,12 @@ namespace CadastroProdutos.Controllers
     public class ProdutosController : ControllerBase
     {
 
-        private ProdutosService produtosService = new ProdutosService();
+        //dependency injection
+        private IProdutosServices produtosService;
+        public ProdutosController()
+        {
+            produtosService = new ProdutosService();
+        }
 
         [HttpGet]
         public ActionResult<List<Produtos>> GetAll()
@@ -58,7 +63,7 @@ namespace CadastroProdutos.Controllers
             {
                 return NotFound($"Produto com ID {id} não encontrado.");
             }
-            
+
             return Ok();
         }
     } 

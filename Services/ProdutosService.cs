@@ -4,7 +4,7 @@ using CadastroProdutos.Entity;
 
 namespace CadastroProdutos.Services;
 
-public class ProdutosService
+public class ProdutosService : IProdutosServices
 {
     private static List<Produtos> produtos = new List<Produtos>
     {

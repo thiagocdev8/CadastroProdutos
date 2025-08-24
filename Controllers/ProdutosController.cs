@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CadastroProdutos.Entity;
+using CadastroProdutos.Services;
 
 namespace CadastroProdutos.Controllers
 {
@@ -8,11 +9,7 @@ namespace CadastroProdutos.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
-        private static List<Produtos> produtos = new List<Produtos>
-        {
-            new Produtos { Id = 1, Nome = "Produto A", Preco = 10.0m, Estoque = 100 },
-            new Produtos { Id = 2, Nome = "Produto B", Preco = 20.0m, Estoque = 200 }
-        };
+       
 
         [HttpGet]
         public ActionResult<List<Produtos>> GetAll()
@@ -59,6 +56,19 @@ namespace CadastroProdutos.Controllers
             produtoExistente.Preco = produtoAtualizado.Preco;
             produtoExistente.Estoque = produtoAtualizado.Estoque;
 
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult deleteProduto(int id)
+        {
+            var produto = produtos.FirstOrDefault(p => p.Id == id);
+            if (produto is null)
+            {
+                return NotFound($"Produto com ID {id} não encontrado.");
+            }
+
+            produtos.Remove(produto);
             return Ok();
         }
     } 

@@ -50,7 +50,7 @@ public class ProdutosService : IProdutosServices
 
         return produtoExistente;
     }
-    
+
     public bool Delete(int id)
     {
         var produto = produtos.FirstOrDefault(p => p.Id == id);
@@ -61,5 +61,13 @@ public class ProdutosService : IProdutosServices
 
         produtos.Remove(produto);
         return true;
+    }
+
+    private void ValidarProduto(Produtos produto)
+    {
+        if (produto.Estoque > 1000)
+        {
+            throw new ArgumentException("O estoque não pode exceder 1000 unidades.");
+        }
     }
 }

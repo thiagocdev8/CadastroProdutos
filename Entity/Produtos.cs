@@ -16,7 +16,7 @@ public class Produtos
     [Range(0.01, double.MaxValue, ErrorMessage = "O preço deve ser maior que zero.")]
     public decimal Preco { get; set; }
 
-    [Range(0, int.MaxValue, ErrorMessage = "O estoque não pode ser negativo.")]
+    [Range(0, 1000, ErrorMessage = "O estoque precisa estar entre 0 e 1000.")]
     public int Estoque { get; set; }
 
     
